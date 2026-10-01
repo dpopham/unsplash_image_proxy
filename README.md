@@ -180,8 +180,4 @@ The tests use mocked HTTP transports; they never contact Unsplash.
 - Error responses are `503` (no image yet) / `429` (rate limit) instead of `500`.
 - The service now runs as user `unsplash` instead of `www-data` (see systemd section).
 
-## License
-
-Add a `LICENSE` file (for example MIT) and reference it here.
-
 Photos are provided by [Unsplash](https://unsplash.com) and remain the property of their photographers.
