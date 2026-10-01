@@ -1,0 +1,16 @@
+/* Nextcloud Custom Background Image */
+body#body-login {
+  background-image: url('https://unsplash.example.com/raw/disney.jpg') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+body {
+  background-image: url('https://unsplash.example.com/raw/disney.jpg') !important;
+  background-size: cover !important;
+  background-position: center center !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
