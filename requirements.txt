@@ -1,0 +1,10 @@
+# Direct runtime dependencies, pinned to the versions the test suite passes on.
+# Regenerate a fully pinned lock with hashes if you want reproducible installs:
+#   pip install pip-tools && pip-compile --generate-hashes -o requirements.lock requirements.txt
+fastapi==0.142.2
+uvicorn[standard]==0.54.0
+httpx==0.28.1
+pillow==12.3.0
+python-dotenv==1.2.3
+jinja2==3.1.6
+slowapi==0.1.10

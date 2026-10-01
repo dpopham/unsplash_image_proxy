@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% if refresh_seconds %}<meta http-equiv="refresh" content="{{ refresh_seconds }}">{% endif %}
+    <title>Boop</title>
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            background: #000;
+        }
+
+        .background {
+            display: block;
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            object-position: center center;
+        }
+    </style>
+</head>
+<body>
+    <img class="background" alt="" src="data:image/jpeg;base64,{{ img_data }}">
+</body>
+</html>

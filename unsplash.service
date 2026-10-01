@@ -1,0 +1,56 @@
+[Unit]
+Description=Random Unsplash wallpaper server (uvicorn)
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=60
+StartLimitBurst=5
+
+[Service]
+Type=simple
+# Dedicated unprivileged user: sudo useradd --system --home /var/www/unsplash --shell /usr/sbin/nologin unsplash
+User=unsplash
+Group=unsplash
+WorkingDirectory=/var/www/unsplash
+EnvironmentFile=/var/www/unsplash/.env
+Environment="PATH=/var/www/unsplash/vpython/bin:/usr/local/bin:/usr/bin:/bin"
+
+# One worker only: refresh task, cache bookkeeping and rate limiter are per process.
+ExecStart=/var/www/unsplash/vpython/bin/uvicorn server.unsplash:app \
+    --host 127.0.0.1 --port 1962 --workers 1 \
+    --timeout-keep-alive 10 --no-server-header \
+    --proxy-headers --forwarded-allow-ips 127.0.0.1
+
+Restart=on-failure
+RestartSec=5
+StandardOutput=journal
+StandardError=journal
+
+# --- sandboxing (the cache directory must exist and be owned by the user) ---
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+PrivateDevices=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/www/unsplash/cache
+ProtectProc=invisible
+ProcSubset=pid
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectKernelLogs=true
+ProtectControlGroups=true
+ProtectClock=true
+ProtectHostname=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+RestrictRealtime=true
+RestrictSUIDSGID=true
+LockPersonality=true
+CapabilityBoundingSet=
+AmbientCapabilities=
+SystemCallArchitectures=native
+SystemCallFilter=@system-service
+SystemCallFilter=~@privileged @resources
+
+[Install]
+WantedBy=multi-user.target
